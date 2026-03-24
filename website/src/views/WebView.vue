@@ -41,7 +41,8 @@ function getYouTubeId(link) {
 
 function getThumbnail(link) {
   const id = getYouTubeId(link)
-  return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : ''
+  // Switched from hqdefault.jpg to mqdefault.jpg
+  return id ? `https://img.youtube.com/vi/${id}/mqdefault.jpg` : ''
 }
 
 function getEmbed(link) {
@@ -109,7 +110,6 @@ function closeVideo() {
 </template>
 
 <style scoped>
-/* LAYOUT & SIDEBAR same as Data/Plot pages */
 .editorial-layout {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -128,12 +128,18 @@ function closeVideo() {
   margin-bottom: 20px;
 }
 
-.main-content h2 {
+/* MAIN CONTENT */
+.web-item {
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+}
+
+.web-item h2 {
   font-size: 1.6rem;
   margin-bottom: 8px;
 }
 
-.main-content p {
+.web-item p {
   margin-bottom: 12px;
   color: var(--color-muted);
 }
@@ -145,11 +151,11 @@ function closeVideo() {
   gap: 40px;
 }
 
-.link-item, .video-item {
+.link-item {
   padding: 10px 0;
 }
 
-.link-item h2, .video-item p {
+.link-item h2 {
   font-size: 1rem;
 }
 
@@ -160,6 +166,10 @@ function closeVideo() {
 }
 
 /* VIDEO */
+.video-item {
+  padding: 10px 0;
+}
+
 .video-thumb {
   position: relative;
   cursor: pointer;
@@ -180,6 +190,21 @@ function closeVideo() {
   color: white;
   padding: 10px;
   border-radius: 50%;
+}
+
+.video-thumb:hover {
+  transform: scale(1.02);
+  transition: 0.2s;
+}
+
+.video-thumb:hover img {
+  filter: brightness(0.8);
+}
+
+.video-title {
+  font-size: 0.85rem;
+  margin-top: 6px;
+  color: var(--color-muted);
 }
 
 /* MODAL */
