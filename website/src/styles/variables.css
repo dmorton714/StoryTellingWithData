@@ -1,0 +1,24 @@
+:root {
+  /* Primary Theme */
+  --color-primary: #4cbb17;
+  --color-secondary: #48872b;
+  --color-accent: #39542c;
+  --color-dark: #293325;
+
+  /* Neutrals */
+  --color-black: #000000;
+  --color-white: #ffffff;
+
+  /* UI */
+  --color-bg: #ffffff;
+  --color-text: #111111;
+  --color-muted: #777777;
+
+  /* Spacing */
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 32px;
+
+  /* Radius */
+  --radius: 10px;
+}
