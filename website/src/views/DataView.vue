@@ -1,5 +1,17 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, markRaw } from 'vue'
+
+/* -------------------------
+   1. IMPORT YOUR COMPONENTS
+   (Make sure to create these files in your project!)
+------------------------- */
+import DataSectionOne from '../Data/DataSectionOne.vue'
+import DataSectionTwo from '../Data/DataSectionTwo.vue'
+import DataSectionThree from '../Data/DataSectionThree.vue'
+import DataSectionFour from '../Data/DataSectionFour.vue'
+import DataSectionFive from '../Data/DataSectionFive.vue'
+import DataSectionSix from '../Data/DataSectionSix.vue'
+
 
 /* -------------------------
    MAIN SECTIONS
@@ -8,34 +20,53 @@ const sections = [
   {
     id: 1,
     title: 'Ethics in Data',
+    component: markRaw(DataSectionOne),
     desc: 'Understanding responsibility, privacy, and the impact data decisions have on individuals and society.'
   },
   {
     id: 2,
     title: 'Choosing the Right Data',
+    component: markRaw(DataSectionTwo),
     desc: 'Selecting relevant, reliable datasets that align with your questions and goals.'
   },
   {
     id: 3,
     title: 'Cleaning Data',
+    component: markRaw(DataSectionThree),
     desc: 'Handling missing values, inconsistencies, and preparing raw data for analysis.'
   },
   {
     id: 4,
     title: 'Exploratory Data Analysis (EDA)',
+    component: markRaw(DataSectionFour),
     desc: 'Identifying patterns, trends, and anomalies before building visualizations.'
   },
   {
     id: 5,
     title: 'Bias & Misleading Visuals',
+    component: markRaw(DataSectionFive),
     desc: 'Recognizing how data and visual choices can distort truth or mislead audiences.'
   },
   {
     id: 6,
     title: 'Communicating Insights',
+    component: markRaw(DataSectionSix),
     desc: 'Turning analysis into clear, compelling narratives that drive understanding.'
   }
 ]
+
+/* -------------------------
+   COMPONENT ROUTING LOGIC
+------------------------- */
+const activeComponent = ref(null)
+
+function openSection(section) {
+  activeComponent.value = section.component
+}
+
+function goBack() {
+  activeComponent.value = null
+}
 
 /* -------------------------
    SIDEBAR CONTENT
@@ -67,7 +98,7 @@ const videos = [
 ]
 
 /* -------------------------
-   VIDEO LOGIC (same system)
+   VIDEO LOGIC
 ------------------------- */
 const activeVideo = ref(null)
 
@@ -100,21 +131,30 @@ function closeVideo() {
 <template>
   <div class="editorial-layout">
 
-    <!-- MAIN CONTENT -->
     <div class="main-content">
-      <h1 class="section-title">Data Foundations</h1>
 
-      <div v-for="section in sections" :key="section.id" class="data-item">
-        <h2>{{ section.title }}</h2>
-        <p>{{ section.desc }}</p>
-        <button class="btn btn-primary">Learn More</button>
+      <div v-if="!activeComponent" class="list-view-container">
+        <h1 class="section-title">Data Foundations</h1>
+
+        <div v-for="section in sections" :key="section.id" class="data-item">
+          <h2>{{ section.title }}</h2>
+          <p>{{ section.desc }}</p>
+          <button @click="openSection(section)" class="btn btn-primary">Learn More</button>
+        </div>
       </div>
+
+      <div v-else class="lesson-view-container">
+        <div class="lesson-header">
+          <button @click="goBack" class="btn btn-primary">← Back to Foundations</button>
+        </div>
+
+        <component :is="activeComponent" />
+      </div>
+
     </div>
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
 
-      <!-- RESOURCES -->
       <section class="sidebar-block">
         <h1 class="section-title">Resources</h1>
 
@@ -124,7 +164,6 @@ function closeVideo() {
         </div>
       </section>
 
-      <!-- VIDEOS -->
       <section class="sidebar-block">
         <h1 class="section-title">Videos</h1>
 
@@ -139,7 +178,6 @@ function closeVideo() {
 
     </aside>
 
-    <!-- MODAL -->
     <div v-if="activeVideo" class="video-modal" @click="closeVideo">
       <div class="video-modal-content" @click.stop>
         <iframe :src="getEmbed(activeVideo.link)" frameborder="0" allowfullscreen></iframe>
@@ -185,6 +223,10 @@ function closeVideo() {
   color: var(--color-muted);
 }
 
+.lesson-header {
+  margin-bottom: 30px;
+}
+
 /* SIDEBAR */
 .sidebar {
   display: flex;
@@ -207,7 +249,7 @@ function closeVideo() {
   font-weight: bold;
 }
 
-/* VIDEO (same as before) */
+/* VIDEO */
 .video-thumb {
   position: relative;
   cursor: pointer;
@@ -240,6 +282,7 @@ function closeVideo() {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2000;
 }
 
 .video-modal-content {
