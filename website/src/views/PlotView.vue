@@ -1,19 +1,46 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, markRaw } from 'vue'
+
+/* -------------------------
+   1. IMPORT YOUR COMPONENTS
+   (Make sure to create these files in your project!)
+------------------------- */
+import SectionOne from '../Plots/TheRightPlot.vue'
+import SectionTwo from '../Plots/SectionTwo.vue'
+import SectionThree from '../Plots/SectionThree.vue'
+import SectionFour from '../Plots/SectionFour.vue'
+import SectionFive from '../Plots/SectionFive.vue'
+import SectionSix from '../Plots/SectionSix.vue'
+import SectionSeven from '../Plots/SectionSeven.vue'
+import SectionEight from '../Plots/SectionEight.vue'
+
 
 /* -------------------------
    MAIN PLOT SECTIONS
 ------------------------- */
 const plotSections = [
-  { id: 1, title: 'Choosing the Right Plot', desc: 'Match your chart type to your data to communicate effectively.' },
-  { id: 2, title: 'Data Literacy', desc: 'Understand what your numbers mean before plotting.' },
-  { id: 3, title: 'Knowing Your Audience', desc: 'Tailor charts for technical or general viewers.' },
-  { id: 4, title: 'Basic Chart Types', desc: 'Bar, line, scatter, pie charts — when to use each.' },
-  { id: 5, title: 'Advanced Visualizations', desc: 'Heatmaps, area charts, bubble plots for complex data.' },
-  { id: 6, title: 'Avoiding Misleading Graphs', desc: 'Truncated axes, cherry-picking data, and other pitfalls.' },
-  { id: 7, title: 'Color & Design Principles', desc: 'Use color and layout to emphasize insights without misleading.' },
-  { id: 8, title: 'Annotation & Storytelling', desc: 'Guide your audience with clear titles, labels, and callouts.' }
+  { id: 1, title: 'Choosing the Right Plot', component: markRaw(SectionOne), desc: 'Match your chart type to your data to communicate effectively.' },
+  { id: 2, title: 'Data Literacy', component: markRaw(SectionTwo), desc: 'Understand what your numbers mean before plotting.' },
+  { id: 3, title: 'Knowing Your Audience', component: markRaw(SectionThree), desc: 'Tailor charts for technical or general viewers.' },
+  { id: 4, title: 'Basic Chart Types', component: markRaw(SectionFour), desc: 'Bar, line, scatter, pie charts — when to use each.' },
+  { id: 5, title: 'Advanced Visualizations', component: markRaw(SectionFive), desc: 'Heatmaps, area charts, bubble plots for complex data.' },
+  { id: 6, title: 'Avoiding Misleading Graphs', component: markRaw(SectionSix), desc: 'Truncated axes, cherry-picking data, and other pitfalls.' },
+  { id: 7, title: 'Color & Design Principles', component: markRaw(SectionSeven), desc: 'Use color and layout to emphasize insights without misleading.' },
+  { id: 8, title: 'Annotation & Storytelling', component: markRaw(SectionEight), desc: 'Guide your audience with clear titles, labels, and callouts.' }
 ]
+
+/* -------------------------
+   COMPONENT ROUTING LOGIC
+------------------------- */
+const activeComponent = ref(null)
+
+function openSection(section) {
+  activeComponent.value = section.component
+}
+
+function goBack() {
+  activeComponent.value = null
+}
 
 /* -------------------------
    SIDEBAR RESOURCES & VIDEOS
@@ -61,21 +88,30 @@ function closeVideo() {
 <template>
   <div class="editorial-layout">
 
-    <!-- MAIN CONTENT -->
     <div class="main-content">
-      <h1 class="section-title">Plotting & Visualization</h1>
 
-      <div v-for="section in plotSections" :key="section.id" class="plot-item">
-        <h2>{{ section.title }}</h2>
-        <p>{{ section.desc }}</p>
-        <button class="btn btn-primary">Learn More</button>
+      <div v-if="!activeComponent" class="list-view-container">
+        <h1 class="section-title">Plotting & Visualization</h1>
+
+        <div v-for="section in plotSections" :key="section.id" class="plot-item">
+          <h2>{{ section.title }}</h2>
+          <p>{{ section.desc }}</p>
+          <button @click="openSection(section)" class="btn btn-primary">Learn More</button>
+        </div>
       </div>
+
+      <div v-else class="lesson-view-container">
+        <div class="lesson-header">
+          <button @click="goBack" class="btn btn-primary">← Back to Topics</button>
+        </div>
+
+        <component :is="activeComponent" />
+      </div>
+
     </div>
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
 
-      <!-- RESOURCES -->
       <section class="sidebar-block">
         <h1 class="section-title">Resources</h1>
 
@@ -85,7 +121,6 @@ function closeVideo() {
         </div>
       </section>
 
-      <!-- VIDEOS -->
       <section class="sidebar-block">
         <h1 class="section-title">Videos</h1>
 
@@ -100,7 +135,6 @@ function closeVideo() {
 
     </aside>
 
-    <!-- VIDEO MODAL -->
     <div v-if="activeVideo" class="video-modal" @click="closeVideo">
       <div class="video-modal-content" @click.stop>
         <iframe :src="getEmbed(activeVideo.link)" frameborder="0" allowfullscreen></iframe>
@@ -143,6 +177,10 @@ function closeVideo() {
 .plot-item p {
   margin-bottom: 12px;
   color: var(--color-muted);
+}
+
+.lesson-header {
+  margin-bottom: 30px;
 }
 
 /* SIDEBAR */
@@ -194,6 +232,11 @@ function closeVideo() {
   transition: 0.2s;
 }
 
+.video-thumb:hover {
+  transform: scale(1.02);
+  transition: 0.2s;
+}
+
 .video-thumb:hover img {
   filter: brightness(0.8);
 }
@@ -215,6 +258,7 @@ function closeVideo() {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2000;
 }
 
 .video-modal-content {
