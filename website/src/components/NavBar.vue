@@ -7,6 +7,7 @@
         <router-link to="/">Home</router-link>
         <router-link to="/data">Data</router-link>
         <router-link to="/plot">Plot</router-link>
+        <router-link to="/dash">Dashboard</router-link>
         <router-link to="/web">Web</router-link>
         <router-link to="/inspo">Inspiration</router-link>
       </div>

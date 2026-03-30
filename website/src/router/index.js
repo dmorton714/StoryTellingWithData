@@ -6,6 +6,7 @@ const WebView = () => import('../views/WebView.vue')
 const DataView = () => import('../views/DataView.vue')
 const PlotView = () => import('../views/PlotView.vue')
 const InspoView = () => import('../views/InspoView.vue')
+const DashView = () => import('../views/DashView.vue')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +35,11 @@ const router = createRouter({
       path: '/inspo',
       name: 'inspo',
       component: InspoView,
+    },
+    {
+      path: '/dash',
+      name: 'dash',
+      component: DashView,
     },
   ],
 })

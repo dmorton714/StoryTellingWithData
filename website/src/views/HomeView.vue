@@ -1,17 +1,21 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, markRaw } from 'vue'
 
-/* -------------------------
-   DATA
-------------------------- */
+// 1. Import week components
+import WeekOne from '../Lessons/WeeklyWork/WeekOne.vue'
+import WeekTwo from '../Lessons/WeeklyWork/WeekTwo.vue'
+import WeekThree from '../Lessons/WeeklyWork/WeekThree.vue'
+import WeekFour from '../Lessons/WeeklyWork/WeekFour.vue'
+import WeekFive from '../Lessons/WeeklyWork/WeekFive.vue'
+import WeekSix from '../Lessons/WeeklyWork/WeekSix.vue'
 
 const weeks = [
-  { id: 1, title: 'Week One', desc: 'Intro to data storytelling fundamentals.' },
-  { id: 2, title: 'Week Two', desc: 'Exploring datasets and asking better questions.' },
-  { id: 3, title: 'Week Three', desc: 'Data cleaning and preparation.' },
-  { id: 4, title: 'Week Four', desc: 'Visualization basics and chart selection.' },
-  { id: 5, title: 'Week Five', desc: 'Advanced storytelling techniques.' },
-  { id: 6, title: 'Week Six', desc: 'Final project and narrative building.' }
+  { id: 1, title: 'Week One', component: markRaw(WeekOne), desc: 'Intro to data storytelling fundamentals.' },
+  { id: 2, title: 'Week Two', component: markRaw(WeekTwo), desc: 'Exploring datasets and asking better questions.' },
+  { id: 3, title: 'Week Three', component: markRaw(WeekThree), desc: 'Data cleaning and preparation.' },
+  { id: 4, title: 'Week Four', component: markRaw(WeekFour), desc: 'Visualization basics and chart selection.' },
+  { id: 5, title: 'Week Five', component: markRaw(WeekFive), desc: 'Advanced storytelling techniques.' },
+  { id: 6, title: 'Week Six', component: markRaw(WeekSix), desc: 'Final project and narrative building.' }
 ]
 
 const inspiration = [
@@ -31,6 +35,18 @@ const videos = [
     link: 'https://www.youtube.com/watch?v=8EMW7io4rSI'
   }
 ]
+
+
+const activeComponent = ref(null)
+
+function openWeek(week) {
+  activeComponent.value = week.component
+}
+
+function goBack() {
+  activeComponent.value = null
+}
+
 
 /* -------------------------
    VIDEO HELPERS
@@ -71,11 +87,25 @@ function closeVideo() {
     <div class="main-content">
       <h1 class="section-title">Assignments</h1>
 
-      <div v-for="week in weeks" :key="week.id" class="week-item">
-        <h2>{{ week.title }}</h2>
-        <p>{{ week.desc }}</p>
-        <button class="btn btn-primary">Explore</button>
+<div v-if="!activeComponent" class="editorial-layout">
+      <div class="main-content">
+        <h1 class="section-title">Assignments</h1>
+        <div v-for="week in weeks" :key="week.id" class="week-item">
+            <h2>{{ week.title }}</h2>
+            <p>{{ week.desc }}</p>
+            <button @click="openWeek(week)" class="btn btn-primary">Explore</button>
+        </div>
       </div>
+
+      </div>
+
+    <div v-else class="lesson-view-container">
+      <div class="lesson-header">
+        <button @click="goBack" class="btn btn-primary">← Back to Assignments</button>
+      </div>
+
+      <component :is="activeComponent" />
+    </div>
     </div>
 
     <!-- SIDEBAR -->
@@ -112,10 +142,7 @@ function closeVideo() {
     <!-- VIDEO MODAL -->
     <div v-if="activeVideo" class="video-modal" @click="closeVideo">
       <div class="video-modal-content" @click.stop>
-        <iframe
-          :src="getEmbed(activeVideo.link)"
-          frameborder="0"
-          allowfullscreen>
+        <iframe :src="getEmbed(activeVideo.link)" frameborder="0" allowfullscreen>
         </iframe>
       </div>
     </div>
@@ -147,7 +174,7 @@ function closeVideo() {
 /* MAIN CONTENT */
 .week-item {
   padding: 20px 0;
-  border-bottom: 1px solid rgba(0,0,0,0.15);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.15);
 }
 
 .week-item h2 {
@@ -209,7 +236,7 @@ function closeVideo() {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   color: white;
   font-size: 20px;
   padding: 10px 14px;
@@ -240,7 +267,7 @@ function closeVideo() {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.8);
+  background: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;

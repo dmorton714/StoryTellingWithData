@@ -1,4 +1,4 @@
-# The Psychology of a Great Plot
+<!-- # The Psychology of a Great Plot
 Goal: To move beyond "it looks nice" and understand the mechanics of communication.
 
 The best plots function like a "Visual Abstract." They shouldn't require the viewer to read a 10-page paper to understand the main takeaway. A good plot respects the viewer's cognitive Load. The amount of mental effort being used in read and understand the plot.
@@ -19,7 +19,7 @@ Strategic Color: Use color to "Highlight," not just "Decorate." If everything is
 
 Consistent Intervals: Jumping from 5-year increments to 10-year increments on an X-axis is a form of visual lying—it distorts the slope of the line.
 
-Active Titling: Instead of a passive title like "Quarterly Revenue," use an active title like "Revenue Surged 20% in Q3 due to New Subscriptions."
+Active Titling: Instead of a passive title like "Quarterly Revenue," use an active title like "Revenue Surged 20% in Q3 due to New Subscriptions." -->
 
 ---
 
