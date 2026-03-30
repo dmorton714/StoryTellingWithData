@@ -1,19 +1,45 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, markRaw } from 'vue'
+
+/* -------------------------
+   1. IMPORT WEB COMPONENTS
+   (Folders are one directory back: ../WebSections/)
+------------------------- */
+import WebSectionOne from '../WebSections/WebSectionOne.vue'
+import WebSectionTwo from '../WebSections/WebSectionTwo.vue'
+import WebSectionThree from '../WebSections/WebSectionThree.vue'
+import WebSectionFour from '../WebSections/WebSectionFour.vue'
+import WebSectionFive from '../WebSections/WebSectionFive.vue'
+import WebSectionSix from '../WebSections/WebSectionSix.vue'
+import WebSectionSeven from '../WebSections/WebSectionSeven.vue'
+import WebSectionEight from '../WebSections/WebSectionEight.vue'
 
 /* -------------------------
    MAIN CONTENT
 ------------------------- */
 const sections = [
-  { id: 1, title: 'Introduction to Web Visualizations', desc: 'Why web is the perfect medium for interactive storytelling.' },
-  { id: 2, title: 'Web Frameworks & Libraries', desc: 'D3.js, Plotly, Chart.js, Vega, Three.js — pros, cons, and when to use.' },
-  { id: 3, title: 'Interactivity & UX', desc: 'Hover states, filtering, zooming, and other interaction patterns.' },
-  { id: 4, title: 'Responsive Design', desc: 'Optimizing for desktop, tablet, and mobile layouts.' },
-  { id: 5, title: 'Performance & Optimization', desc: 'Lazy loading, throttling, handling large datasets efficiently.' },
-  { id: 6, title: 'Embedding Charts & Dashboards', desc: 'How to integrate interactive visualizations into stories and websites.' },
-  { id: 7, title: 'Accessibility & ARIA', desc: 'Ensuring your visualizations are accessible to all users.' },
-  { id: 8, title: 'Best Practices & Pitfalls', desc: 'Common mistakes to avoid when creating web visualizations.' }
+  { id: 1, title: 'Introduction to Web Visualizations', component: markRaw(WebSectionOne), desc: 'Why web is the perfect medium for interactive storytelling.' },
+  { id: 2, title: 'Web Frameworks & Libraries', component: markRaw(WebSectionTwo), desc: 'D3.js, Plotly, Chart.js, Vega, Three.js — pros, cons, and when to use.' },
+  { id: 3, title: 'Interactivity & UX', component: markRaw(WebSectionThree), desc: 'Hover states, filtering, zooming, and other interaction patterns.' },
+  { id: 4, title: 'Responsive Design', component: markRaw(WebSectionFour), desc: 'Optimizing for desktop, tablet, and mobile layouts.' },
+  { id: 5, title: 'Performance & Optimization', component: markRaw(WebSectionFive), desc: 'Lazy loading, throttling, handling large datasets efficiently.' },
+  { id: 6, title: 'Embedding Charts & Dashboards', component: markRaw(WebSectionSix), desc: 'How to integrate interactive visualizations into stories and websites.' },
+  { id: 7, title: 'Accessibility & ARIA', component: markRaw(WebSectionSeven), desc: 'Ensuring your visualizations are accessible to all users.' },
+  { id: 8, title: 'Best Practices & Pitfalls', component: markRaw(WebSectionEight), desc: 'Common mistakes to avoid when creating web visualizations.' }
 ]
+
+/* -------------------------
+   COMPONENT ROUTING LOGIC
+------------------------- */
+const activeComponent = ref(null)
+
+function openSection(section) {
+  activeComponent.value = section.component
+}
+
+function goBack() {
+  activeComponent.value = null
+}
 
 /* -------------------------
    SIDEBAR RESOURCES & VIDEOS
@@ -41,7 +67,6 @@ function getYouTubeId(link) {
 
 function getThumbnail(link) {
   const id = getYouTubeId(link)
-  // Switched from hqdefault.jpg to mqdefault.jpg
   return id ? `https://img.youtube.com/vi/${id}/mqdefault.jpg` : ''
 }
 
@@ -62,21 +87,30 @@ function closeVideo() {
 <template>
   <div class="editorial-layout">
 
-    <!-- MAIN CONTENT -->
     <div class="main-content">
-      <h1 class="section-title">Web & Interactive Visualizations</h1>
 
-      <div v-for="section in sections" :key="section.id" class="web-item">
-        <h2>{{ section.title }}</h2>
-        <p>{{ section.desc }}</p>
-        <button class="btn btn-primary">Learn More</button>
+      <div v-if="!activeComponent" class="list-view-container">
+        <h1 class="section-title">Web & Interactive Visualizations</h1>
+
+        <div v-for="section in sections" :key="section.id" class="web-item">
+          <h2>{{ section.title }}</h2>
+          <p>{{ section.desc }}</p>
+          <button @click="openSection(section)" class="btn btn-primary">Learn More</button>
+        </div>
       </div>
+
+      <div v-else class="lesson-view-container">
+        <div class="lesson-header">
+          <button @click="goBack" class="btn btn-primary">← Back to Topics</button>
+        </div>
+
+        <component :is="activeComponent" />
+      </div>
+
     </div>
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
 
-      <!-- RESOURCES -->
       <section class="sidebar-block">
         <h1 class="section-title">Resources</h1>
         <div v-for="item in resources" :key="item.id" class="link-item">
@@ -85,7 +119,6 @@ function closeVideo() {
         </div>
       </section>
 
-      <!-- VIDEOS -->
       <section class="sidebar-block">
         <h1 class="section-title">Videos</h1>
         <div v-for="video in videos" :key="video.id" class="video-item">
@@ -99,7 +132,6 @@ function closeVideo() {
 
     </aside>
 
-    <!-- VIDEO MODAL -->
     <div v-if="activeVideo" class="video-modal" @click="closeVideo">
       <div class="video-modal-content" @click.stop>
         <iframe :src="getEmbed(activeVideo.link)" frameborder="0" allowfullscreen></iframe>
@@ -144,6 +176,10 @@ function closeVideo() {
   color: var(--color-muted);
 }
 
+.lesson-header {
+  margin-bottom: 30px;
+}
+
 /* SIDEBAR */
 .sidebar {
   display: flex;
@@ -179,6 +215,7 @@ function closeVideo() {
 
 .video-thumb img {
   width: 100%;
+  display: block;
 }
 
 .play-overlay {
