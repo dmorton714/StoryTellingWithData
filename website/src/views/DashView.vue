@@ -1,5 +1,16 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, markRaw } from 'vue'
+
+/* -------------------------
+   1. IMPORT DASHBOARD COMPONENTS
+   (Make sure to create these files in src/Dashboards/)
+------------------------- */
+import DashSectionOne from '../Dashboards/DashSectionOne.vue'
+import DashSectionTwo from '../Dashboards/DashSectionTwo.vue'
+import DashSectionThree from '../Dashboards/DashSectionThree.vue'
+import DashSectionFour from '../Dashboards/DashSectionFour.vue'
+import DashSectionFive from '../Dashboards/DashSectionFive.vue'
+import DashSectionSix from '../Dashboards/DashSectionSix.vue'
 
 /* -------------------------
    MAIN SECTIONS: Dashboard Focus
@@ -8,34 +19,53 @@ const sections = [
   {
     id: 1,
     title: 'Defining the User Persona',
+    component: markRaw(DashSectionOne),
     desc: 'Understanding who will use the dashboard and what specific questions they need to answer daily.'
   },
   {
     id: 2,
     title: 'Visual Hierarchy & Layout',
+    component: markRaw(DashSectionTwo),
     desc: 'Organizing information using the "F-Pattern" to ensure the most critical KPIs are seen first.'
   },
   {
     id: 3,
     title: 'Designing for Interactivity',
+    component: markRaw(DashSectionThree),
     desc: 'Implementing filters, drill-downs, and tooltips to allow users to explore data without clutter.'
   },
   {
     id: 4,
     title: 'Real-time vs. Static Data',
+    component: markRaw(DashSectionFour),
     desc: 'Deciding between live data streams and scheduled snapshots based on technical constraints and user needs.'
   },
   {
     id: 5,
     title: 'Color Theory & Accessibility',
+    component: markRaw(DashSectionFive),
     desc: 'Using color strategically to highlight alerts while ensuring high contrast for all users.'
   },
   {
     id: 6,
     title: 'Performance & Optimization',
+    component: markRaw(DashSectionSix),
     desc: 'Techniques for ensuring your dashboard loads quickly, even when handling large-scale datasets.'
   }
 ]
+
+/* -------------------------
+   COMPONENT ROUTING LOGIC
+------------------------- */
+const activeComponent = ref(null)
+
+function openSection(section) {
+  activeComponent.value = section.component
+}
+
+function goBack() {
+  activeComponent.value = null
+}
 
 /* -------------------------
    SIDEBAR CONTENT
@@ -67,7 +97,7 @@ const videos = [
 ]
 
 /* -------------------------
-   VIDEO LOGIC (Unchanged)
+   VIDEO LOGIC
 ------------------------- */
 const activeVideo = ref(null)
 
@@ -101,13 +131,25 @@ function closeVideo() {
   <div class="editorial-layout">
 
     <div class="main-content">
-      <h1 class="section-title">Dashboard Design</h1>
 
-      <div v-for="section in sections" :key="section.id" class="data-item">
-        <h2>{{ section.title }}</h2>
-        <p>{{ section.desc }}</p>
-        <button class="btn btn-primary">View Module</button>
+      <div v-if="!activeComponent" class="list-view-container">
+        <h1 class="section-title">Dashboard Design</h1>
+
+        <div v-for="section in sections" :key="section.id" class="data-item">
+          <h2>{{ section.title }}</h2>
+          <p>{{ section.desc }}</p>
+          <button @click="openSection(section)" class="btn btn-primary">View Module</button>
+        </div>
       </div>
+
+      <div v-else class="lesson-view-container">
+        <div class="lesson-header">
+          <button @click="goBack" class="btn btn-primary">← Back to Topics</button>
+        </div>
+
+        <component :is="activeComponent" />
+      </div>
+
     </div>
 
     <aside class="sidebar">
@@ -178,6 +220,10 @@ function closeVideo() {
   color: var(--color-muted);
 }
 
+.lesson-header {
+  margin-bottom: 30px;
+}
+
 /* SIDEBAR */
 .sidebar {
   display: flex;
@@ -233,6 +279,7 @@ function closeVideo() {
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2000;
 }
 
 .video-modal-content {
@@ -253,4 +300,3 @@ function closeVideo() {
   }
 }
 </style>
-
