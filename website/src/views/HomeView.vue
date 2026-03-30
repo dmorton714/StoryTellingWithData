@@ -36,7 +36,6 @@ const videos = [
   }
 ]
 
-
 const activeComponent = ref(null)
 
 function openWeek(week) {
@@ -46,7 +45,6 @@ function openWeek(week) {
 function goBack() {
   activeComponent.value = null
 }
-
 
 /* -------------------------
    VIDEO HELPERS
@@ -83,13 +81,15 @@ function closeVideo() {
 <template>
   <div class="editorial-layout">
 
-    <!-- MAIN CONTENT -->
     <div class="main-content">
-      <h1 class="section-title">Assignments</h1>
 
-<div v-if="!activeComponent" class="editorial-layout">
-      <div class="main-content">
+      <div v-if="!activeComponent" class="list-view-container">
         <h1 class="section-title">Assignments</h1>
+
+        <p class="lead-text">
+          <strong>Welcome to Storytelling with Data!</strong> We designed this site to provide all the content we will cover so you have it ready to go at your fingertips and can always reference back for your needs at any time.
+        </p>
+
         <div v-for="week in weeks" :key="week.id" class="week-item">
             <h2>{{ week.title }}</h2>
             <p>{{ week.desc }}</p>
@@ -97,21 +97,18 @@ function closeVideo() {
         </div>
       </div>
 
+      <div v-else class="lesson-view-container">
+        <div class="lesson-header">
+          <button @click="goBack" class="btn btn-primary">← Back to Assignments</button>
+        </div>
+
+        <component :is="activeComponent" />
       </div>
 
-    <div v-else class="lesson-view-container">
-      <div class="lesson-header">
-        <button @click="goBack" class="btn btn-primary">← Back to Assignments</button>
-      </div>
-
-      <component :is="activeComponent" />
-    </div>
     </div>
 
-    <!-- SIDEBAR -->
     <aside class="sidebar">
 
-      <!-- INSPIRATION -->
       <section class="sidebar-block">
         <h1 class="section-title">Inspiration</h1>
 
@@ -121,13 +118,11 @@ function closeVideo() {
         </div>
       </section>
 
-      <!-- VIDEOS -->
       <section class="sidebar-block">
         <h1 class="section-title">Videos</h1>
 
         <div v-for="video in videos" :key="video.id" class="video-item">
 
-          <!-- THUMBNAIL -->
           <div class="video-thumb" @click="openVideo(video)">
             <img :src="getThumbnail(video.link)" />
             <div class="play-overlay">▶</div>
@@ -139,7 +134,6 @@ function closeVideo() {
 
     </aside>
 
-    <!-- VIDEO MODAL -->
     <div v-if="activeVideo" class="video-modal" @click="closeVideo">
       <div class="video-modal-content" @click.stop>
         <iframe :src="getEmbed(activeVideo.link)" frameborder="0" allowfullscreen>
@@ -171,6 +165,18 @@ function closeVideo() {
   margin-bottom: 20px;
 }
 
+/* INTRO TEXT */
+.lead-text {
+  font-size: 1.25rem;
+  color: var(--color-muted, #555);
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+}
+
+.lead-text strong {
+  color: var(--color-dark, #222);
+}
+
 /* MAIN CONTENT */
 .week-item {
   padding: 20px 0;
@@ -185,6 +191,10 @@ function closeVideo() {
 .week-item p {
   margin-bottom: 12px;
   color: var(--color-muted);
+}
+
+.lesson-header {
+  margin-bottom: 30px;
 }
 
 /* SIDEBAR */

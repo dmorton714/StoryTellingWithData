@@ -7,12 +7,6 @@
     <h1 class="lesson-title">Data Storytelling Fundamentals</h1>
 
     <div class="editorial-block">
-      <p class="lead-text">
-        <strong>Welcome to Storytelling with Data!</strong> We designed this site to house all the content we will cover over the next six weeks, so you have it ready to go at your fingertips and can always reference back to it whenever you need.
-      </p>
-    </div>
-
-    <div class="editorial-block">
       <h2 class="subsection-title">The Psychology of a Great Plot</h2>
 
       <div class="goal-callout">
@@ -76,21 +70,9 @@
 .lesson-title {
   font-size: 2.5rem;
   font-weight: 700;
-  margin-bottom: 0.5em;
+  margin-bottom: 1em;
   line-height: 1.2;
   letter-spacing: -0.5px;
-}
-
-/* INTRO TEXT */
-.lead-text {
-  font-size: 1.25rem;
-  color: var(--color-muted, #555);
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-}
-
-.lead-text strong {
-  color: var(--color-dark, #222);
 }
 
 .editorial-block {
