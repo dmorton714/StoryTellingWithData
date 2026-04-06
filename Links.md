@@ -47,7 +47,7 @@ Keeping in mind like the above we read left to right and top to bottom
 Navigation is most functional at the top 
 
 You can make an amazing site and break the rules but you also risk loosing the end users. 
-[Great Example of this](https://yesnowww.com/)
+- [Great Example of this](https://yesnowww.com/)
 
 The site is amazing and shows creativity and style. However its hard to use, can you find the navigation on the site? Do they know how to design a standard page based on the work section? 
 
@@ -84,3 +84,18 @@ We will imagine the call center took in 20% more calls. Our target for issues re
 
 We put the wins up top and bold the good numbers. We make far less of a deal about the bad stat. We could go a step further and make the good stats a different color too. 
 
+--- 
+
+videos 
+
+The Science of Data Visualization
+https://www.youtube.com/watch?v=4cq6oUjdPRs
+
+Stop Sharing Data—Start Telling Stories
+https://www.youtube.com/watch?v=okziFtWFoJM
+
+removing chart junk
+https://www.youtube.com/watch?v=vy9JqtMkmsI
+
+Accessible Design for Data Visualizations - Learn@DLF Tutorial - 2020 Virtual DLF Forum
+https://www.youtube.com/watch?v=PfrtZeYmKkk

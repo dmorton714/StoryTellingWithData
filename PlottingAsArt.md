@@ -91,7 +91,7 @@ I like to think of this as a scatter plot with a trend line. You have a heavy co
 
 **Rembrandt van Rijn** - The Man with the Golden Helmet 1650
 
-
+The use of light is so important in Rembrandt's work. Looking at this I can't help but think of a pie chart. we have gold as the call out and the other values are muted and don't matter as much.  
 
 # Photos 
 
@@ -99,19 +99,29 @@ I like to think of this as a scatter plot with a trend line. You have a heavy co
 
 **Alfred Stieglitz** - 1907
 
+This image is so powerful in the use of space, composition, and values. Almost divided in half with black and white data. Lines pull you around the image with a clear focal point being the bottom of the image pulling you to the left.  
+
 <img src="images/artExample/Lewis-Hine-1908.jpg" width="800">
 
 **Lewis Hine** - 1908
+
+This image is so easy to read and striking. The bold leading line and the child being in focus. We see someone bigger in the background but they don't matter. The star is the child working in the textile mill. If it was a bar the kid is the called out star of the show that we want the viewer to look at. Maybe the adult labor is higher but we are looking at the child. 
 
 <img src="images/artExample/Stanley-Forman-1975.jpg" width="800">
 
 **Stanley Forman** - 1975
 
+This is a tragic image with so much going on. So many things to look at and movement. However we can not help but look at the small child. So much of the image highlights the child. The beams are like annotations. The window frames the child the colors stand out in the image. 
+
+This reminds me od a scatter plot with a area highlighted to look at. Maybe its a year range and then a particular plot color we need to look at. 
+
 <img src="images/artExample/W-Eugene-Smith-1948.jpg" width="800">
 
 **W Eugene Smith** - 1948
 
+Striking, dramatic, and clean is what comes to my mind on this image. The colors and light and simple composition make this image speak volumes. Everything was thought out super clear and thoughtfully in this image. Every element was accounted for and everything matters. A plain empty sky and this image means less. A bland bare foreground and it looses it power. 
 
+This to me is a simple bar plot. We picked every element in the plot with consideration and intention. We did not just go with a default. We called out the right and only real data point we want you to look at. 
 
 # Plots
 
@@ -119,21 +129,31 @@ I like to think of this as a scatter plot with a trend line. You have a heavy co
 
 **Ed Hawkins** - 2018
 
+The most stripped down plot and tells a clear story. In the right context we know whats happening. It could use a title and x axis label. It shows the global average temp from 1850 to 2020. This could do well in a art gallery or in a global warming article. 
+
 <img src="images/artExample/CharlesJosephMinard1869.webp" width="800">
 
 **Charles Joseph Minard** - 1869
+
+Famous graph showing the decreasing size of the Grande Armée as it marches to Moscow (brown line, from left to right) and back (black line, from right to left) with the size of the army equal to the width of the line. Temperature is plotted on the lower graph for the return journey (Multiply Réaumur temperatures by 1¼ to get Celsius, e.g. −30 °R = −37.5 °C)
 
 <img src="images/artExample/DmitriMendeleev1869.png" width="800">
 
 **Dmitri Mendeleev** - 1869
 
+A chart you have seen and probably never gave a top of though to. This is a great example of portraying information effectively. This is also done in a clear way with a specific audience in mind. 
+
 <img src="images/artExample/florenceNightingale1858.webp" width="800">
 
 **Florence Nightingale** - 1858
 
+Beautiful break down of Army troops and mortality. Built in the 1800's and held in high regard of story telling. 
+
 <img src="images/artExample/WEBDuBois1900.webp" width="800">
 
 **W.E.B. Du Bois** - 1900
+
+Clear simple design - Clean and easy to read without any context you can understand what is happening and the story. 
 
 ### Composition Examples 
 - [Photo Examples](https://petapixel.com/photography-composition-techniques/)
