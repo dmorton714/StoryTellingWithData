@@ -1,5 +1,7 @@
 <script setup>
 import { ref, markRaw } from 'vue'
+import { useRouter } from 'vue-router'
+
 
 // 1. Import week components
 import WeekOne from '../Lessons/WeeklyWork/WeekOne.vue'
@@ -8,22 +10,71 @@ import WeekThree from '../Lessons/WeeklyWork/WeekThree.vue'
 import WeekFour from '../Lessons/WeeklyWork/WeekFour.vue'
 import WeekFive from '../Lessons/WeeklyWork/WeekFive.vue'
 import WeekSix from '../Lessons/WeeklyWork/WeekSix.vue'
+import WeekOnePractice from '../Lessons/WeeklyWork/Practice/WeekOnePractice.vue'
+import WeekTwoPractice from '../Lessons/WeeklyWork/Practice/WeekTwoPractice.vue'
+import WeekThreePractice from '../Lessons/WeeklyWork/Practice/WeekThreePractice.vue'
+import WeekFourPractice from '../Lessons/WeeklyWork/Practice/WeekFourPractice.vue'
+import WeekFivePractice from '../Lessons/WeeklyWork/Practice/WeekFivePractice.vue'
+import WeekSixPractice from '../Lessons/WeeklyWork/Practice/WeekSixPractice.vue'
+
+const router = useRouter()
 
 const weeks = [
-  { id: 1, title: 'Week One', component: markRaw(WeekOne), desc: 'Intro to data storytelling fundamentals.' },
-  { id: 2, title: 'Week Two', component: markRaw(WeekTwo), desc: 'Exploring datasets and asking better questions.' },
-  { id: 3, title: 'Week Three', component: markRaw(WeekThree), desc: 'Data cleaning and preparation.' },
-  { id: 4, title: 'Week Four', component: markRaw(WeekFour), desc: 'Visualization basics and chart selection.' },
-  { id: 5, title: 'Week Five', component: markRaw(WeekFive), desc: 'Advanced storytelling techniques.' },
-  { id: 6, title: 'Week Six', component: markRaw(WeekSix), desc: 'Final project and narrative building.' }
+  { 
+    id: 1, 
+    title: 'Week One', 
+    component: markRaw(WeekOne), 
+    practiceComponent: markRaw(WeekOnePractice),
+    desc: 'Intro to data storytelling fundamentals.' 
+  },
+  { 
+    id: 2, 
+    title: 'Week Two', 
+    component: markRaw(WeekTwo), 
+    practiceComponent: markRaw(WeekTwoPractice),
+    desc: 'Asking better questions, choosing the right data, and understanding your audience.' 
+  },
+  { 
+    id: 3, 
+    title: 'Week Three', 
+    component: markRaw(WeekThree), 
+    practiceComponent: markRaw(WeekThreePractice),
+    desc: 'Choosing the right chart to clearly communicate your message.' 
+  },
+  { 
+    id: 4, 
+    title: 'Week Four', 
+    component: markRaw(WeekFour), 
+    practiceComponent: markRaw(WeekFourPractice),
+    desc: 'Using design, color, and visual hierarchy to guide attention and improve clarity.' 
+  },
+  { 
+    id: 5, 
+    title: 'Week Five', 
+    component: markRaw(WeekFive), 
+    practiceComponent: markRaw(WeekFivePractice),
+    desc: 'Understanding bias, avoiding misleading visuals, and communicating data ethically.' 
+  },
+  { 
+    id: 6, 
+    title: 'Week Six', 
+    component: markRaw(WeekSix), 
+    practiceComponent: markRaw(WeekSixPractice),
+    desc: 'Building a narrative, using annotation, and communicating insights effectively.' 
+  }
 ]
 
-const inspiration = [
-  { id: 1, title: 'NYT Visual Stories', link: 'https://www.nytimes.com/section/graphics' },
-  { id: 2, title: 'FiveThirtyEight', link: 'https://fivethirtyeight.com/' }
+const dataResourceLinks = [
+  { id: 1, title: 'Kaggle', link: 'https://www.kaggle.com/' },
+  { id: 2, title: 'Data.gov', link: 'https://data.gov/' },
+  { id: 3, title: 'FiveThirtyEight', link: 'https://data.fivethirtyeight.com/' },
+  { id: 4, title: 'Google Dataset Search', link: 'https://datasetsearch.research.google.com/' },
+  { id: 5, title: 'Awesome Public Datasets', link: 'https://github.com/awesomedata/awesome-public-datasets' },
+  { id: 6, title: 'UCI Machine Learning Repository', link: 'https://archive.ics.uci.edu/' },
+  { id: 7, title: 'NASA', link: 'https://data.nasa.gov/dataset/' },
 ]
 
-const videos = [
+const featuredVideos = [
   {
     id: 1,
     title: 'What is Data Storytelling?',
@@ -33,6 +84,16 @@ const videos = [
     id: 2,
     title: 'How to Tell Stories with Data',
     link: 'https://www.youtube.com/watch?v=8EMW7io4rSI'
+  },
+    {
+    id: 3,
+    title: 'Data Literacy and the Art of Asking Questions',
+    link: 'https://youtu.be/GhqTvWwMOYw?si=Der9QqjZfxmhMDqI'
+  },
+  {
+    id: 4,
+    title: 'The Art of Asking the Right Questions in Data Analytics',
+    link: 'https://youtu.be/UCjw488nR_Y?si=VvRteYyNKAl9z7Z8'
   }
 ]
 
@@ -42,8 +103,16 @@ function openWeek(week) {
   activeComponent.value = week.component
 }
 
+function openPractice(week) {
+  activeComponent.value = week.practiceComponent
+}
+
 function goBack() {
   activeComponent.value = null
+}
+
+function goToVideos() {
+  router.push('/videos')
 }
 
 /* -------------------------
@@ -84,16 +153,27 @@ function closeVideo() {
     <div class="main-content">
 
       <div v-if="!activeComponent" class="list-view-container">
-        <h1 class="section-title">Assignments</h1>
+        <h1 class="section-title">Course Overview</h1>
 
         <p class="lead-text">
-          <strong>Welcome to Storytelling with Data!</strong> We designed this site to provide all the content we will cover so you have it ready to go at your fingertips and can always reference back for your needs at any time.
+          <strong>Welcome to Storytelling with Data!</strong> This site is your central resource for the workshop. Each week includes a lesson to review before class and a set of practice exercises to help you apply what you’ve learned.
         </p>
 
+        <p class="lead-text">
+          Start by reviewing the lesson, then move to Practice & Apply to reinforce the concepts. You can return to these materials at any time as a reference as you build your final project and strengthen your data storytelling skills.
+        </p>
+
+        <p class="lead-text">
+          In addition to the weekly lessons, the tabs at the top of the page provide examples and reference material across different contexts. Data storytelling appears in different formats and environments, check out the Inspiration page for real-world examples to explore and learn from.
+        </p>
         <div v-for="week in weeks" :key="week.id" class="week-item">
-            <h2>{{ week.title }}</h2>
-            <p>{{ week.desc }}</p>
-            <button @click="openWeek(week)" class="btn btn-primary">Explore</button>
+          <h2>{{ week.title }}</h2>
+          <p>{{ week.desc }}</p>
+
+          <div class="week-actions">
+            <button @click="openWeek(week)" class="btn btn-primary">Review Lesson</button>
+            <button @click="openPractice(week)" class="btn btn-secondary">Practice & Apply</button>
+          </div>
         </div>
       </div>
 
@@ -110,18 +190,18 @@ function closeVideo() {
     <aside class="sidebar">
 
       <section class="sidebar-block">
-        <h1 class="section-title">Inspiration</h1>
+        <h1 class="section-title">Data Sources</h1>
 
-        <div v-for="item in inspiration" :key="item.id" class="link-item">
+        <div v-for="item in dataResourceLinks" :key="item.id" class="link-item">
           <h2>{{ item.title }}</h2>
           <a :href="item.link" target="_blank">Visit</a>
         </div>
       </section>
 
       <section class="sidebar-block">
-        <h1 class="section-title">Videos</h1>
+        <h1 class="section-title">Featured Videos</h1>
 
-        <div v-for="video in videos" :key="video.id" class="video-item">
+        <div v-for="video in featuredVideos" :key="video.id" class="video-item">
 
           <div class="video-thumb" @click="openVideo(video)">
             <img :src="getThumbnail(video.link)" />
@@ -130,6 +210,9 @@ function closeVideo() {
 
           <p class="video-title">{{ video.title }}</p>
         </div>
+        <button @click="goToVideos" class="btn btn-secondary">
+          More Videos
+        </button>
       </section>
 
     </aside>

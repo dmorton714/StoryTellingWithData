@@ -1,5 +1,6 @@
 <script setup>
 import { ref, markRaw } from 'vue'
+import { useRouter } from 'vue-router'
 
 /* -------------------------
    1. IMPORT YOUR COMPONENTS
@@ -16,6 +17,8 @@ import DataSectionSix from '../Data/DataSectionSix.vue'
 /* -------------------------
    MAIN SECTIONS
 ------------------------- */
+const router = useRouter()
+
 const sections = [
   {
     id: 1,
@@ -81,19 +84,19 @@ const resources = [
     id: 2,
     title: 'Storytelling with Data',
     link: 'https://www.storytellingwithdata.com/'
+  },
+  {
+    id: 3,
+    title: 'Accessibility in Data Visualization (Full Course)',
+    link: 'https://openvisualizationacademy.org/courses/accessibility-in-data-visualization/introduction/introduction/'
   }
 ]
 
-const videos = [
+const featuredVideos = [
   {
     id: 1,
     title: 'The Importance of Data Ethics',
     link: 'https://www.youtube.com/watch?v=ua-CiDNNj30'
-  },
-  {
-    id: 2,
-    title: 'Data Cleaning Basics',
-    link: 'https://www.youtube.com/watch?v=E7YjZ2e3F0M'
   }
 ]
 
@@ -125,6 +128,10 @@ function openVideo(video) {
 
 function closeVideo() {
   activeVideo.value = null
+}
+
+function goToVideos() {
+  router.push('/videos')
 }
 </script>
 
@@ -167,13 +174,16 @@ function closeVideo() {
       <section class="sidebar-block">
         <h1 class="section-title">Videos</h1>
 
-        <div v-for="video in videos" :key="video.id" class="video-item">
+        <div v-for="video in featuredVideos" :key="video.id" class="video-item">
           <div class="video-thumb" @click="openVideo(video)">
             <img :src="getThumbnail(video.link)" />
             <div class="play-overlay">▶</div>
           </div>
           <p class="video-title">{{ video.title }}</p>
         </div>
+        <button @click="goToVideos" class="btn btn-secondary">
+          More Videos
+        </button>
       </section>
 
     </aside>

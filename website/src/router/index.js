@@ -7,6 +7,7 @@ const DataView = () => import('../views/DataView.vue')
 const PlotView = () => import('../views/PlotView.vue')
 const InspoView = () => import('../views/InspoView.vue')
 const DashView = () => import('../views/DashView.vue')
+const AllVideosView = () => import ('../views/AllVideosView.vue')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,6 +42,11 @@ const router = createRouter({
       name: 'dash',
       component: DashView,
     },
+    {
+    path: '/videos',
+    name: 'Videos',
+    component: AllVideosView
+    }
   ],
 })
 
